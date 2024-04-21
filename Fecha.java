@@ -20,8 +20,10 @@ public class Fecha
     // año de la fecha
     private int anho;
     
-    private int diasValidos;
+    // comprueba si el año es bisiesto
     private boolean esBisiesto;
+    
+    private int diaMes;
     
     /**
      * Constructor por defecto, para la clase fecha.
@@ -44,7 +46,18 @@ public class Fecha
      */
     public Fecha(int nuevoDia, int nuevoMes, int nuevoAnho){
         // Implementar este constructor
+        if(diaMes == 31){
         assert nuevoDia >= 1 && nuevoDia <=31:"introduzca un dia valido";
+        }
+        if(diaMes == 28){
+        assert nuevoDia >= 1 && nuevoDia <=28:"introduzca un dia valido";
+        }
+        if(diaMes == 29){
+        assert nuevoDia >= 1 && nuevoDia <=29:"introduzca un dia valido";
+        }
+        else{
+        assert nuevoDia >= 1 && nuevoDia <=30:"introduzca un dia valido";
+        }
         assert nuevoMes >= 1 && nuevoMes <=12:"introduzca un mes correcto";
         assert nuevoAnho >= 1582:"introduzca un año mayor o igual a 1582";
         
@@ -55,7 +68,9 @@ public class Fecha
         }
         }
         
-        
+        dia=nuevoDia;
+        mes=nuevoMes;
+        anho=nuevoAnho;
         }
     
     /**
@@ -88,7 +103,18 @@ public class Fecha
      */
     public void cambiarDia(int nuevoDia) {
         //Implementar este método
-        
+        if(diaMes == 31){
+        assert nuevoDia >= 1 && nuevoDia <=31:"introduzca un dia valido";
+        }
+        if(diaMes == 28){
+        assert nuevoDia >= 1 && nuevoDia <=28:"introduzca un dia valido";
+        }
+        if(diaMes == 29){
+        assert nuevoDia >= 1 && nuevoDia <=29:"introduzca un dia valido";
+        }
+        else{
+        assert nuevoDia >= 1 && nuevoDia <=30:"introduzca un dia valido";
+        }
         dia=nuevoDia;
     }
     
@@ -142,21 +168,25 @@ public class Fecha
      * Computa la cantidad de días de un mes dado. El parámetro
      * debe corresponder a un mes válido.
      */
-    public int cantDias(int unMes) 
+    private int cantDias(int unMes) 
     {
         // Implementar este método, reemplazando la línea siguiente
         assert(unMes >= 1 && unMes <= 12):"mes invalido";
-        int diaMes=0;
+        mes=unMes;
         if(unMes==1||unMes==3||unMes==5||unMes==7||unMes==8||unMes==10||unMes==12){
+            diaMes = 31;
             return 31;
         }
         if(unMes == 2 && esBisiesto == true){
+            diaMes = 29;
             return 29;
         }
         if(unMes == 2 && esBisiesto == false){
+            diaMes = 28;
             return 28;
         }
         else{
+            diaMes = 30;
             return 30;
         }
         
@@ -171,13 +201,14 @@ public class Fecha
     private boolean esBisiesto(int unAnho) 
     {
         // Implementar este método, reemplazando la línea siguiente
-        if (unAnho %4 == 0||unAnho %100 == 0 && unAnho %400 == 0){
+        unAnho=anho;
+        if (unAnho % 4 == 0 || unAnho % 100 == 0 && unAnho % 400 == 0){
             esBisiesto = true;
             return true;
         }
         else{
             esBisiesto = false;
             return false;
-            }
+        }
         }
 }

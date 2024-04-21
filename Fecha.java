@@ -46,30 +46,38 @@ public class Fecha
      */
     public Fecha(int nuevoDia, int nuevoMes, int nuevoAnho){
         // Implementar este constructor
-        if(diaMes == 31){
-        assert nuevoDia >= 1 && nuevoDia <=31:"introduzca un dia valido";
-        }
-        if(diaMes == 28){
-        assert nuevoDia >= 1 && nuevoDia <=28:"introduzca un dia valido";
-        }
-        if(diaMes == 29){
-        assert nuevoDia >= 1 && nuevoDia <=29:"introduzca un dia valido";
-        }
-        else{
-        assert nuevoDia >= 1 && nuevoDia <=30:"introduzca un dia valido";
-        }
-        assert nuevoMes >= 1 && nuevoMes <=12:"introduzca un mes correcto";
-        assert nuevoAnho >= 1582:"introduzca un año mayor o igual a 1582";
-        
         if (nuevoAnho == 1582){
         assert nuevoMes >= 10:"introduzca un mes mayor o igual a 10";
         if (nuevoMes == 10){
         assert nuevoDia >= 15:"introduzca un dia mayor o igual a 15";
         }
         }
+        anho=nuevoAnho;
+        
+        if (nuevoAnho % 4 == 0 || nuevoAnho % 100 == 0 && nuevoAnho % 400 == 0){
+            esBisiesto = true;
+        }
+        else{
+            esBisiesto = false;
+        }
+        assert nuevoMes >= 1 && nuevoMes <=12:"introduzca un mes correcto";
+        mes=nuevoMes;
+        if(mes==1||mes==3||mes==5||mes==7||mes==8||mes==10||mes==12){
+        assert nuevoDia >= 1 && nuevoDia <=31:"introduzca un dia valido";
+        }
+        if(mes == 2 && esBisiesto == true){
+        assert nuevoDia >= 1 && nuevoDia <=29:"introduzca un dia valido";
+        }
+        if(mes == 2 && esBisiesto == false){
+        assert nuevoDia >= 1 && nuevoDia <=28:"introduzca un dia valido";
+        }
+        if(mes==4||mes==6||mes==9||mes==11){
+        assert nuevoDia >= 1 && nuevoDia <=30:"introduzca un dia valido";
+        }
+        assert nuevoAnho >= 1582:"introduzca un año mayor o igual a 1582";
+        
         
         dia=nuevoDia;
-        mes=nuevoMes;
         anho=nuevoAnho;
         }
     
@@ -103,14 +111,14 @@ public class Fecha
      */
     public void cambiarDia(int nuevoDia) {
         //Implementar este método
-        if(diaMes == 31){
+        if(mes==1||mes==3||mes==5||mes==7||mes==8||mes==10||mes==12){
         assert nuevoDia >= 1 && nuevoDia <=31:"introduzca un dia valido";
         }
-        if(diaMes == 28){
-        assert nuevoDia >= 1 && nuevoDia <=28:"introduzca un dia valido";
-        }
-        if(diaMes == 29){
+        if(mes == 2 && esBisiesto == true){
         assert nuevoDia >= 1 && nuevoDia <=29:"introduzca un dia valido";
+        }
+        if(mes == 2 && esBisiesto == false){
+        assert nuevoDia >= 1 && nuevoDia <=28:"introduzca un dia valido";
         }
         else{
         assert nuevoDia >= 1 && nuevoDia <=30:"introduzca un dia valido";
@@ -172,7 +180,7 @@ public class Fecha
     {
         // Implementar este método, reemplazando la línea siguiente
         assert(unMes >= 1 && unMes <= 12):"mes invalido";
-        mes=unMes;
+        unMes=mes;
         if(unMes==1||unMes==3||unMes==5||unMes==7||unMes==8||unMes==10||unMes==12){
             diaMes = 31;
             return 31;
